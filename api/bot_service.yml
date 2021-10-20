@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bot-deployment
+  labels:
+    monitoring: prometheus
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bot-service
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: bot-service
+    spec:
+      containers:
+        - name: bot-service
+          image: louis70109/chatops:v9
+          ports:
+            - containerPort: 31110

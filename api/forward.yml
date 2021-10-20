@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: bot-service
+  name: bot-service
+spec:
+  ports:
+    - name: 'bot-svc'
+      nodePort: 31110
+      port: 31110
+      protocol: TCP
+      targetPort: 31110
+  selector:
+    app: bot-service
+  type: NodePort
