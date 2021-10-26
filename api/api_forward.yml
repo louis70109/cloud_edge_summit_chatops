@@ -4,6 +4,8 @@ metadata:
   labels:
     app: bot-service
   name: bot-service
+  namespace: kube-ops
+
 spec:
   ports:
     - name: 'bot-svc'
