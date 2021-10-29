@@ -1,0 +1,18 @@
+{
+  "name": "LINE-demo-bot",
+  "description": "LINE demo Bot",
+  "repository": "https://github.com/louis70109/MIT_flask-line-bot-demo",
+  "keywords": [
+    "LINE",
+    "flask",
+    "python",
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python.git"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
