@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bot-deployment
+  name: api-deployment
   labels:
     monitoring: prometheus
   namespace: kube-ops
@@ -9,15 +9,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bot-service
+      app: api-service
   minReadySeconds: 5
   template:
     metadata:
       labels:
-        app: bot-service
+        app: api-service
     spec:
       containers:
-        - name: bot-service
+        - name: api-service
           image: louis70109/chatops:v15
           ports:
             - containerPort: 31110
