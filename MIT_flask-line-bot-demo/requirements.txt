@@ -1,4 +1,0 @@
-line-bot-sdk
-flask
-python-dotenv
-gunicorn

@@ -77,9 +77,9 @@ def message_text(event):
         for family in text_string_to_metric_families(prom_data.content.decode('UTF-8')):
             for sample in family.samples:
                 if sample[0] == 'process_cpu_seconds_total':
-                    request_time.append(f'CPU time: {str(sample[2])}\n')
+                    request_time.append(f'CPU time: {str(sample[2])}s\n')
                 if sample[0] == 'server_requests_total':
-                    request_time.append(f'API cost time: {str(sample[2])}\n')
+                    request_time.append(f'API cost time: {str(sample[2])}s\n')
                     break
                 # print("Name: {0} Labels: {1} Value: {2}".format(*sample))
         output = TextSendMessage(text=''.join(request_time))
