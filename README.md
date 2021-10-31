@@ -83,7 +83,7 @@ k3d cluster create testcluster --agents 1 -p "31110-31112:31110-31112@server:0"
 kubectl create ns kube-ops
 kubectl apply -f prometheus/
 kubectl apply -f api/
-kubectl apply -f bot_proxy/
+# kubectl apply -f bot_proxy/
 ```
 
 - `prometheus/`: 收集 Metrics 使用
@@ -98,6 +98,11 @@ npx ngrok http --authtoken 'YOUR_NGROK_TOKEN' -region=ap --host-header=rewrite I
 
 refs: https://ngrok.com/docs
 
+## Install Python
+
+```
+sudo add-apt-repository ppa:deadsnakes/ppa
+```
 ## Testing
 
 Use following code by Bash

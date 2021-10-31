@@ -56,7 +56,7 @@ def callback():
 def message_text(event):
     message = event.message.text
     if message == 'a':
-        prom_data = requests.get('http://api-deployment:31110/metrics')
+        prom_data = requests.get('http://localhost:31110/metrics')
         request_time = ['API time spent: \n']
         for family in text_string_to_metric_families(prom_data.content.decode('UTF-8')):
             for sample in family.samples:
@@ -93,5 +93,5 @@ def message_text(event):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=31112, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)
 
