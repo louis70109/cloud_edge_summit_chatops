@@ -14,7 +14,7 @@ data:
       - targets: ['localhost:9090']
     - job_name: 'service'
       static_configs: 
-      - targets: ['bot-service:31110']
+      - targets: ['api-service:31110']
       relabel_configs:
       - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
         action: replace
