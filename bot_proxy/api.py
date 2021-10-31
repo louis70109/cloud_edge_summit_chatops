@@ -8,7 +8,7 @@ if os.getenv('DEVELOPMENT') is not None:
     load_dotenv(dotenv_path='../.env')
 
 import sys
-
+import requests
 from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
@@ -20,6 +20,7 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FlexSendMessage, LocationSendMessage,
     VideoSendMessage, ImageSendMessage, StickerSendMessage,
 )
+from prometheus_client.parser import text_string_to_metric_families
 
 app = Flask(__name__)
 
@@ -58,7 +59,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
     message = event.message.text
-    if message == 'emoji':
+    if message == 'a':
         emoji = [
             {
                 "index": 0,
@@ -71,13 +72,17 @@ def message_text(event):
                 "emojiId": "002"
             }
         ]
-        output = TextSendMessage(text='$ LINE emoji $', emojis=emoji)
-    elif message == 'sticker':
-        # https://github.com/line/line-bot-sdk-python#stickersendmessage
-        output = StickerSendMessage(
-            package_id='1',
-            sticker_id='2'
-        )
+        prom_data = requests.get('http://localhost:31110/metrics')
+        request_time = ['API time spent: \n']
+        for family in text_string_to_metric_families(prom_data.content.decode('UTF-8')):
+            for sample in family.samples:
+                if sample[0] == 'process_cpu_seconds_total':
+                    request_time.append(f'CPU time: {str(sample[2])}\n')
+                if sample[0] == 'server_requests_total':
+                    request_time.append(f'API cost time: {str(sample[2])}\n')
+                    break
+                # print("Name: {0} Labels: {1} Value: {2}".format(*sample))
+        output = TextSendMessage(text=''.join(request_time))
     elif message == 'image':
         # https://github.com/line/line-bot-sdk-python#imagesendmessage
         output = ImageSendMessage(

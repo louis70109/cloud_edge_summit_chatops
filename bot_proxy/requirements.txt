@@ -2,3 +2,5 @@ line-bot-sdk
 flask
 python-dotenv
 gunicorn
+requests
+prometheus-client
