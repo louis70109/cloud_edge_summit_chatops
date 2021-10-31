@@ -1,7 +1,5 @@
 import os
 
-from linebot.models.events import VideoPlayCompleteEvent
-
 if os.getenv('DEVELOPMENT') is not None:
     from dotenv import load_dotenv
 
@@ -17,9 +15,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, FlexSendMessage, LocationSendMessage,
-    VideoSendMessage, ImageSendMessage, StickerSendMessage,
-)
+    MessageEvent, TextMessage, TextSendMessage, FlexSendMessage)
 from prometheus_client.parser import text_string_to_metric_families
 
 app = Flask(__name__)
@@ -60,18 +56,6 @@ def callback():
 def message_text(event):
     message = event.message.text
     if message == 'a':
-        emoji = [
-            {
-                "index": 0,
-                "productId": "5ac1bfd5040ab15980c9b435",
-                "emojiId": "001"
-            },
-            {
-                "index": 13,
-                "productId": "5ac1bfd5040ab15980c9b435",
-                "emojiId": "002"
-            }
-        ]
         prom_data = requests.get('http://localhost:31110/metrics')
         request_time = ['API time spent: \n']
         for family in text_string_to_metric_families(prom_data.content.decode('UTF-8')):
@@ -83,13 +67,6 @@ def message_text(event):
                     break
                 # print("Name: {0} Labels: {1} Value: {2}".format(*sample))
         output = TextSendMessage(text=''.join(request_time))
-    elif message == 'image':
-        # https://github.com/line/line-bot-sdk-python#imagesendmessage
-        output = ImageSendMessage(
-            original_content_url='https://engineering.linecorp.com/wp-content/uploads/2021/06/linebot001-1024x571.jpg',
-            preview_image_url='https://engineering.linecorp.com/wp-content/uploads/2021/06/linebot001-1024x571.jpg'
-        )
-
     elif message == 'flex':
         # https://github.com/line/line-bot-sdk-python#flexsendmessage
         output = FlexSendMessage(
@@ -116,5 +93,5 @@ def message_text(event):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=31112, debug=True)
 
