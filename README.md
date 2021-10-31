@@ -93,7 +93,7 @@ kubectl apply -f bot_proxy/
 open new terminal
 
 ```
-npx ngrok http --authtoken 'YOUR_NGROK_TOKEN' -region=ap --host-header=rewrite 5000
+npx ngrok http --authtoken 'YOUR_NGROK_TOKEN' -region=ap --host-header=rewrite IP:31112
 ```
 
 refs: https://ngrok.com/docs

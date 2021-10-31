@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: bot-service
-          image: louis70109/chatops_botproxy:v3
+          image: louis70109/chatops_botproxy:v4
           ports:
             - containerPort: 31112
           env:
