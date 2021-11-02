@@ -1,8 +1,9 @@
 ## Prerequisite
 
 - Docker
+- Terminal
 
-## Download Virtual Box
+## 下載 Virtual Box 的映像檔
 
 - image url
 
@@ -11,7 +12,7 @@ ssh -p 3022 demo@localhost
 su -
 ```
 
-## Install Docker into Ubuntu
+## 在 Ubuntu 上安裝 Docker
 
 ```
 sudo apt-get update -y
@@ -29,22 +30,22 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 sudo docker run hello-world
 ```
 
-### If you can't install docker-ed
+### 如果有遇到無法安裝 docker-ed 的問題
 
 ```
 apt-cache madison docker-ce # find version
 sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io
 ```
 
-## Install cluster package
+## 安裝 cluster 相關套件
 
-- Install `k3d`
+- 安裝 `k3d`
 
 ```
 wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
 ```
 
-- Install `kubectl` command line
+- 安裝 `kubectl` command line
 
 ```
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -64,7 +65,7 @@ git clone git@github.com:louis70109/cloud_edge_summit_chatops.git
 
 ### 狀況排除
 
-you may see the fail message.
+如果是第一次透過 VM 拉取 GitHub 資源可能會出現無法拉取的資訊
 
 use blow command line to create SHA key
 
@@ -83,14 +84,32 @@ k3d cluster create testcluster --agents 1 -p "31110-31112:31110-31112@server:0"
 kubectl create ns kube-ops
 kubectl apply -f prometheus/
 kubectl apply -f api/
-# kubectl apply -f bot_proxy/
 ```
 
 - `prometheus/`: 收集 Metrics 使用
 - `api/`: 測試用的 API
-- `bot_proxy/`: 即時查看的 chatbot
 
-open new terminal
+## 在 VM 中安裝 Python
+
+```
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+apt install python3-pip
+sudo apt install python3.8
+```
+
+### 透過 bot-proxy 建立 LINE Bot 到 VM 中
+
+```
+cd bot_proxy/
+mv .env.example .env # vim to edit it
+python3 api.py
+```
+
+
+### 在本機 Mac || Windows 開啟一個視窗並使用以下指令
+
+> 需要安裝 NodeJS
 
 ```
 npx ngrok http --authtoken 'YOUR_NGROK_TOKEN' -region=ap --host-header=rewrite IP:31112
@@ -98,19 +117,14 @@ npx ngrok http --authtoken 'YOUR_NGROK_TOKEN' -region=ap --host-header=rewrite I
 
 refs: https://ngrok.com/docs
 
-## Install Python
+## 測試 - 持續呼叫 API 
+
+Use following code at another Terminal by Bash
 
 ```
-sudo add-apt-repository ppa:deadsnakes/ppa
-```
-## Testing
-
-Use following code by Bash
-
-```
-for VARIABLE in 1 .. 100
+while [ 1 ]
 do
-        curl localhost:31110; sleep 1s
+        curl IP:31110; sleep 1s
 done
 ```
 
