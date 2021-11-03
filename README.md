@@ -1,6 +1,6 @@
 ## Prerequisite
 
-- Docker
+- Virtual Box
 - Terminal
 
 ## 下載 Virtual Box 的映像檔
@@ -8,11 +8,12 @@
 - image url
 
 ```
-ssh -p 3022 demo@localhost
+ssh -p 3022 demo@VM_IP
 su -
 ```
 
-## 在 Ubuntu 上安裝 Docker
+> ifconfig | grep 1
+## 在 Ubuntu 上安裝 Docker + netools (ifconfig)
 
 ```
 sudo apt-get update -y
@@ -20,7 +21,7 @@ sudo apt-get install \
     ca-certificates \
     curl \
     gnupg \
-    lsb-release -y
+    lsb-release net-tools -y
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
  echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
@@ -57,7 +58,7 @@ mv ./kubectl ~/.local/bin/kubectl
 
 > source from https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 
-- Clone example project
+- Clone 範例專案
 
 ```
 git clone git@github.com:louis70109/cloud_edge_summit_chatops.git
@@ -67,16 +68,15 @@ git clone git@github.com:louis70109/cloud_edge_summit_chatops.git
 
 如果是第一次透過 VM 拉取 GitHub 資源可能會出現無法拉取的資訊
 
-use blow command line to create SHA key
+使用以下指令來建立 SHA 
 
 ```
 ssh-keygen
 cat .ssh/id_rsa.pub
 ```
 
-copy your public key to GitHub page and git clone again.
-
-## Apply example to cluster
+複製公鑰到 GitHub 的 settings 上
+## 把範例程式 Apply 到 k3d cluster
 
 ```
 cd cloud_edge_summit_chatops/
@@ -89,7 +89,7 @@ kubectl apply -f api/
 - `prometheus/`: 收集 Metrics 使用
 - `api/`: 測試用的 API
 
-## 在 VM 中安裝 Python
+## 在 VM 中安裝 Python 環境
 
 ```
 sudo add-apt-repository ppa:deadsnakes/ppa
@@ -98,7 +98,7 @@ apt install python3-pip
 sudo apt install python3.8
 ```
 
-### 透過 bot-proxy 建立 LINE Bot 到 VM 中
+### 透過 bot-proxy 建立 LINE Bot 到 VM 中，當中間層 LINE 與 Cluster 溝通橋樑
 
 ```
 cd bot_proxy/
@@ -109,10 +109,10 @@ python3 api.py
 
 ### 在本機 Mac || Windows 開啟一個視窗並使用以下指令
 
-> 需要安裝 NodeJS
+> 需要安裝 NodeJS, 以及到 ngrok 官網上註冊會員
 
 ```
-npx ngrok http --authtoken 'YOUR_NGROK_TOKEN' -region=ap --host-header=rewrite IP:31112
+npx ngrok http --authtoken 'YOUR_NGROK_TOKEN' -region=ap --host-header=rewrite IP:8000
 ```
 
 refs: https://ngrok.com/docs
@@ -128,7 +128,15 @@ do
 done
 ```
 
+> 再透過 chatbot 看看狀態吧！
 ## Other 
+
+因為有建立 namespace，因此敲指令時都要加上 `-n`
+
+```
+kubectl get pods -n kube-ops
+kubectl get svc -n kube-ops
+```
 
 Mac user:
 
