@@ -93,9 +93,9 @@ kubectl apply -f api/
 
 ```
 sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-apt install python3-pip
-sudo apt install python3.8
+sudo apt-get update -y
+sudo apt-get install python3-pip -y
+sudo apt-get install python3.8 -y
 ```
 
 ### 透過 bot-proxy 建立 LINE Bot 到 VM 中，當中間層 LINE 與 Cluster 溝通橋樑
@@ -103,6 +103,7 @@ sudo apt install python3.8
 ```
 cd bot_proxy/
 mv .env.example .env # vim to edit it
+pip3 install -r requirements.txt --user
 python3 api.py
 ```
 
