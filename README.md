@@ -13,6 +13,7 @@ su -
 ```
 
 > ifconfig | grep 1
+
 ## 在 Ubuntu 上安裝 Docker + netools (ifconfig)
 
 ```
@@ -29,6 +30,15 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 sudo apt-get update -y
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 sudo docker run hello-world
+```
+
+## 在 VM 中安裝 Python 環境
+
+```
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update -y
+sudo apt-get install python3-pip -y
+sudo apt-get install python3.8 -y
 ```
 
 ### 如果有遇到無法安裝 docker-ed 的問題
@@ -68,7 +78,7 @@ git clone git@github.com:louis70109/cloud_edge_summit_chatops.git
 
 如果是第一次透過 VM 拉取 GitHub 資源可能會出現無法拉取的資訊
 
-使用以下指令來建立 SHA 
+使用以下指令來建立 SHA
 
 ```
 ssh-keygen
@@ -76,6 +86,7 @@ cat .ssh/id_rsa.pub
 ```
 
 複製公鑰到 GitHub 的 settings 上
+
 ## 把範例程式 Apply 到 k3d cluster
 
 ```
@@ -89,15 +100,6 @@ kubectl apply -f api/
 - `prometheus/`: 收集 Metrics 使用
 - `api/`: 測試用的 API
 
-## 在 VM 中安裝 Python 環境
-
-```
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt-get update -y
-sudo apt-get install python3-pip -y
-sudo apt-get install python3.8 -y
-```
-
 ### 透過 bot-proxy 建立 LINE Bot 到 VM 中，當中間層 LINE 與 Cluster 溝通橋樑
 
 ```
@@ -106,7 +108,6 @@ mv .env.example .env # vim to edit it
 pip3 install -r requirements.txt --user
 python3 api.py
 ```
-
 
 ### 在本機 Mac || Windows 開啟一個視窗並使用以下指令
 
@@ -118,7 +119,7 @@ npx ngrok http --authtoken 'YOUR_NGROK_TOKEN' -region=ap --host-header=rewrite I
 
 refs: https://ngrok.com/docs
 
-## 測試 - 持續呼叫 API 
+## 測試 - 持續呼叫 API
 
 Use following code at another Terminal by Bash
 
@@ -130,7 +131,8 @@ done
 ```
 
 > 再透過 chatbot 看看狀態吧！
-## Other 
+
+## Other
 
 因為有建立 namespace，因此敲指令時都要加上 `-n`
 
