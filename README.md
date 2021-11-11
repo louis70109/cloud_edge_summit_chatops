@@ -1,11 +1,9 @@
 ## Prerequisite
 
-- Virtual Box
+- Virtual Box v6.1.28
 - Terminal
 
 ## 下載 Virtual Box 的映像檔
-
-- image url
 
 ```
 ssh -p 3022 demo@VM_IP
