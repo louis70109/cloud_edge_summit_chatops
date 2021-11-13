@@ -18,6 +18,6 @@ spec:
     spec:
       containers:
         - name: api-service
-          image: louis70109/chatops:v15
+          image: louis70109/chatops:v21
           ports:
             - containerPort: 31110
