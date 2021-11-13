@@ -1,9 +1,17 @@
-## Prerequisite
+# 手把手透過 LINE Bot 打造出雲端的 ChatOps
 
-- Virtual Box v6.1.28
-- Terminal
+## 事前準備
+
+- Virtual Box
+  - 版本：v6.1.28
+  - [下載處](https://www.virtualbox.org/wiki/Downloads)
+- 終端機
+  - iTerm
+  - WSL2
 
 ## 下載 Virtual Box 的映像檔
+
+[Google Drive](https://drive.google.com/file/d/14OxBvbDGd1ue4dooP9HPcXov5-EB1TQG/view?usp=sharing)
 
 ```
 ssh -p 3022 demo@VM_IP
@@ -119,12 +127,14 @@ refs: https://ngrok.com/docs
 
 ## 測試 - 持續呼叫 API
 
-Use following code at another Terminal by Bash
+透過下列的 Bash 來持續呼叫範例 Item API 的 Deployment 
 
 ```
 while [ 1 ]
 do
-        curl IP:31110; sleep 1s
+        curl IP:31110/items; sleep 1s
+        curl -X POST IP:31110/items; sleep 1s
+        curl -X POST IP:31110/items\?name=1; sleep 1s
 done
 ```
 

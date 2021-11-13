@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from werkzeug.exceptions import RequestTimeout
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from prometheus_client import make_wsgi_app, Summary, Counter
@@ -25,8 +25,8 @@ def process_request(t):
 def get_item():
     process_request(random.random())
     REQUESTS.inc()
-    return [{'id': 1, 'name': 'Book', 'desc': 'I am a book'},
-            {'id': 2, 'name': 'Coffee', 'desc': 'Good to drink'}]
+    return jsonify([{'id': 1, 'name': 'Book', 'desc': 'I am a book'},
+                    {'id': 2, 'name': 'Coffee', 'desc': 'Good to drink'}])
 
 
 @app.route("/items", methods=['POST'])
