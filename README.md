@@ -5,6 +5,8 @@
 - Virtual Box
   - 版本：v6.1.28
   - [下載處](https://www.virtualbox.org/wiki/Downloads)
+- NodeJS: v14.15.5
+- Python: 3.9
 - 終端機
   - iTerm
   - WSL2
@@ -13,12 +15,19 @@
 
 [Google Drive](https://drive.google.com/file/d/14OxBvbDGd1ue4dooP9HPcXov5-EB1TQG/view?usp=sharing)
 
+
 ```
 ssh -p 3022 demo@VM_IP
 su -
 ```
 
-> ifconfig | grep 1
+> 為展示方便使用 Root 權限，於伺服器上要做好權限管理喔！
+
+### 取得 VM IP
+
+```
+ifconfig | grep 1
+```
 
 ## 在 Ubuntu 上安裝 Docker + netools (ifconfig)
 
@@ -118,6 +127,7 @@ python3 api.py
 ### 在本機 Mac || Windows 開啟一個視窗並使用以下指令
 
 > 需要安裝 NodeJS, 以及到 ngrok 官網上註冊會員
+> NodeJS 下載： https://nodejs.org/zh-tw/download/
 
 ```
 npx ngrok http --authtoken 'YOUR_NGROK_TOKEN' -region=ap --host-header=rewrite IP:8000
@@ -127,7 +137,7 @@ refs: https://ngrok.com/docs
 
 ## 測試 - 持續呼叫 API
 
-透過下列的 Bash 來持續呼叫範例 Item API 的 Deployment 
+透過下列的 Bash 來持續呼叫範例 Item API 的 Deployment
 
 ```
 while [ 1 ]
@@ -140,7 +150,15 @@ done
 
 > 再透過 chatbot 看看狀態吧！
 
-## Other
+![](https://github.com/louis70109/cloud_edge_summit_chatops/blob/master/readme_images/chatbot_result.png)
+
+## 延伸
+
+可以透過 [lens](https://github.com/lensapp/lens) 或 k9s 相關的工具來查看目前 Cluster 內的狀態，以下為透過 k9s 看的狀態
+
+![](https://github.com/louis70109/cloud_edge_summit_chatops/blob/master/readme_images/k3d.png)
+
+### 取得 namespace 下的內容
 
 因為有建立 namespace，因此敲指令時都要加上 `-n`
 
@@ -149,13 +167,21 @@ kubectl get pods -n kube-ops
 kubectl get svc -n kube-ops
 ```
 
-Mac user:
+### Mac 用戶
+
+如果你是使用 Mac，可以透過 brew 來安裝 k3d 以及 kubectl 於環境
 
 ```
 brew install k3d
 brew install kubectl
 ```
 
-Prometheus query:
+### Prometheus query:
 
 - rate(process_cpu_seconds_total{job="service"}[1m])
+
+## LICENSE
+
+[MIT](https://github.com/louis70109/cloud_edge_summit_chatops/blob/master/LICENSE)
+
+歡迎分享出去給更多人參考使用！
