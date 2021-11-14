@@ -45,7 +45,7 @@ def callback():
     signature = request.headers['X-Line-Signature']
 
     # get request body as text
-    body = request.get_data(as_text=True)
+    body = request.get_datsa(as_text=True)
     app.logger.info("Request body: " + body)
 
     # handle webhook body
@@ -60,7 +60,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
     message = event.message.text
-    if message == 'a':
+    if message == '/status':
         prom_data = requests.get('http://localhost:31110/metrics')
         request_time = []
         for family in text_string_to_metric_families(prom_data.content.decode('UTF-8')):
