@@ -5,7 +5,7 @@
 - Virtual Box
   - 版本：v6.1.28
   - [下載處](https://www.virtualbox.org/wiki/Downloads)
-- NodeJS: v14.15.5
+- [NodeJS](https://nodejs.org/zh-tw/download/): v14.15.5
 - Python: 3.9
 - 終端機
   - iTerm
@@ -13,8 +13,7 @@
 
 ## 下載 Virtual Box 的映像檔
 
-[Google Drive](https://drive.google.com/file/d/14OxBvbDGd1ue4dooP9HPcXov5-EB1TQG/view?usp=sharing)
-
+[Google Drive](https://drive.google.com/drive/folders/1y_UAXphvMcl8-wSdfJaD2kyhq4Q8XMHZ?usp=sharing)
 
 ```
 ssh -p 3022 demo@VM_IP
@@ -38,10 +37,13 @@ sudo apt-get install \
     curl \
     gnupg \
     lsb-release net-tools -y
+
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
 sudo apt-get update -y
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 sudo docker run hello-world
@@ -115,7 +117,25 @@ kubectl apply -f api/
 - `prometheus/`: 收集 Metrics 使用
 - `api/`: 測試用的 API
 
-### 透過 bot-proxy 建立 LINE Bot 到 VM 中，當中間層 LINE 與 Cluster 溝通橋樑
+## LINE Bot 官方帳號建立
+
+- 至 [LINE Developer Console](https://developers.line.biz/console/) 註冊一個 LINE Bot
+- 先建立 Provider
+- 接著建立 Messaging API(LINE Bot)
+- 更改**自動回應**的設定
+- 頁面先保留起來
+
+![](https://github.com/louis70109/Screen-LINE-Bullets/blob/master/LINE-bot-step.jpg)
+
+### 狀況排除
+
+- 如再更改 Official Account Manager 中的**進階設定**時沒看到任何的 LINE Bot 資訊
+- 請先在 OA Manager 中先建立一支 LINE Bot 後
+- 再重新於 Developer Console 中建立 LINE Bot 重新一次流程即可
+
+![](https://github.com/louis70109/cloud_edge_summit_chatops/blob/master/readme_images/oa_manager.png)
+
+## 透過 bot-proxy 建立 LINE Bot 到 VM 中，當中間層 LINE 與 Cluster 溝通橋樑
 
 ```
 cd bot_proxy/
@@ -124,7 +144,7 @@ pip3 install -r requirements.txt --user
 python3 api.py
 ```
 
-### 在本機 Mac || Windows 開啟一個視窗並使用以下指令
+## 在本機 Mac || Windows 開啟一個視窗並使用以下指令
 
 > 需要安裝 NodeJS, 以及到 ngrok 官網上註冊會員
 > NodeJS 下載： https://nodejs.org/zh-tw/download/
