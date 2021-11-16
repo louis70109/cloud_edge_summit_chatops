@@ -1,5 +1,9 @@
 # 手把手透過 LINE Bot 打造出雲端的 ChatOps
 
+- 透過 K3D 本地端部署 Kubernetes 集群
+- 快速打造並且上線自己的官方帳號 (LINE Bot)
+- 透過 LINE Bot 來監控 Kubernetes 集群狀況
+
 ## 事前準備
 
 - Virtual Box
@@ -15,8 +19,11 @@
 
 [Google Drive](https://drive.google.com/drive/folders/1y_UAXphvMcl8-wSdfJaD2kyhq4Q8XMHZ?usp=sharing)
 
+把 Virtual Box 網路從 **NAT** 改成 **橋接介面卡**
+
 ```
-ssh -p 3022 demo@VM_IP
+ssh demo@VM_IP  # default pwd 123456
+sudo passwd root
 su -
 ```
 
