@@ -6,6 +6,8 @@
 
 ## 事前準備
 
+大家可以使用 Mac、Windows、Linux 各種作業系統，在這次的工作坊中會在 Docker 裡面建置 Cluster 的環境，並且透過電腦的終端機來操作環境內的服務。
+
 - Virtual Box
   - 版本：v6.1.28
   - [下載處](https://www.virtualbox.org/wiki/Downloads)
@@ -15,7 +17,7 @@
   - iTerm
   - WSL2
 
-## 下載 Virtual Box 的映像檔
+## 下載 Virtual Box 的映像檔 (Optional)
 
 [Google Drive](https://drive.google.com/drive/folders/1y_UAXphvMcl8-wSdfJaD2kyhq4Q8XMHZ?usp=sharing)
 
